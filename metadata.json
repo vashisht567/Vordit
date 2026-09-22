@@ -1,0 +1,6 @@
+{
+  "name": "PADHARO",
+  "description": "Rajasthan’s Local Business to Global Market - Connecting local artisans, weavers, SHGs and rural entrepreneurs directly to buyers with AI listings and authentic storytelling.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
