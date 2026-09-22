@@ -343,6 +343,41 @@ class PadharoViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    fun updateSellerMakerProfile(
+        artisanName: String,
+        businessName: String,
+        district: String,
+        villageOrCity: String,
+        fullAddress: String,
+        craftOrigin: String,
+        artisanStory: String,
+        videoUrl: String,
+        videoTitle: String,
+        videoDurationSeconds: Int,
+        onSuccess: () -> Unit
+    ) {
+        viewModelScope.launch {
+            val current = currentSellerProfile.value ?: repository.getSellerByUserIdDirect(_currentUserId.value)
+            if (current != null) {
+                val updated = current.copy(
+                    artisanName = artisanName,
+                    businessName = businessName,
+                    district = district,
+                    villageOrCity = villageOrCity,
+                    fullAddress = fullAddress,
+                    craftOrigin = craftOrigin,
+                    artisanStory = artisanStory,
+                    videoUrl = videoUrl,
+                    videoTitle = videoTitle,
+                    videoDurationSeconds = videoDurationSeconds
+                )
+                repository.updateSeller(updated)
+                _userFeedback.value = if (_currentLanguage.value == "HI") "कारीगर कहानी व वीडियो सफलतापूर्वक अपडेट हुआ" else "Meet the Maker story & video updated successfully"
+                onSuccess()
+            }
+        }
+    }
+
     fun clearDemoData() {
         viewModelScope.launch {
             repository.clearDemoData()

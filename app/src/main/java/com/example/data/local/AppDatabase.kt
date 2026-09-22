@@ -34,7 +34,7 @@ import com.example.data.local.entities.WishlistItemEntity
         ProductReviewEntity::class,
         PlatformSettingsEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

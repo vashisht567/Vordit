@@ -33,6 +33,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data.local.entities.ProductEntity
 import com.example.data.local.entities.ProductReviewEntity
+import com.example.data.local.entities.SellerProfileEntity
+import com.example.ui.components.MeetTheMakerSection
 import com.example.ui.theme.OasisGreen
 import com.example.ui.theme.RoyalIndigo
 import com.example.ui.theme.RoyalSaffron
@@ -45,6 +47,7 @@ fun ProductDetailScreen(
     reviews: List<ProductReviewEntity>,
     currentLanguage: String,
     isInWishlist: Boolean,
+    seller: SellerProfileEntity? = null,
     onBackClick: () -> Unit,
     onWishlistToggle: () -> Unit,
     onAddToCart: (ProductEntity) -> Unit,
@@ -308,41 +311,16 @@ fun ProductDetailScreen(
                 }
             }
 
-            // Meet the Maker / Artisan Section
+            // Prominently Displayed "Meet the Maker" Section
             item {
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Icon(Icons.Default.Verified, contentDescription = null, tint = OasisGreen, modifier = Modifier.size(20.dp))
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                text = if (currentLanguage == "HI") "कारीगर से मिलें (Meet the Artisan)" else "Meet the Maker",
-                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Text(
-                            text = product.makerName,
-                            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
-                            color = RoyalSaffron
-                        )
-
-                        Text(
-                            text = if (product.makerStory.isNotBlank()) product.makerStory else "Master craft family preserving ancestral handmade traditions.",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.padding(top = 4.dp)
-                        )
-                    }
-                }
+                MeetTheMakerSection(
+                    seller = seller,
+                    fallbackMakerName = product.makerName,
+                    fallbackMakerStory = product.makerStory,
+                    fallbackDistrict = product.district,
+                    currentLanguage = currentLanguage,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
             }
 
             // Specifications Card

@@ -177,12 +177,14 @@ fun PadharoApp(viewModel: PadharoViewModel = viewModel()) {
                 selectedProduct != null -> {
                     val prod = selectedProduct!!
                     val reviews by viewModel.getProductReviews(prod.id).collectAsStateWithLifecycle(emptyList())
+                    val seller = allSellers.find { it.id == prod.sellerId }
 
                     ProductDetailScreen(
                         product = prod,
                         reviews = reviews,
                         currentLanguage = currentLanguage,
                         isInWishlist = wishlistIds.contains(prod.id),
+                        seller = seller,
                         onBackClick = { selectedProduct = null },
                         onWishlistToggle = { viewModel.toggleWishlist(prod.id) },
                         onAddToCart = {
@@ -264,7 +266,10 @@ fun PadharoApp(viewModel: PadharoViewModel = viewModel()) {
                                 currentLanguage = currentLanguage,
                                 onAddProductClick = { currentTab = NavigationTab.SellerAddProduct.route },
                                 onDeleteProduct = { id -> viewModel.deleteProduct(id) },
-                                onUpdateOrderStatus = { orderId, status -> viewModel.updateOrderStatus(orderId, status) }
+                                onUpdateOrderStatus = { orderId, status -> viewModel.updateOrderStatus(orderId, status) },
+                                onUpdateMakerProfile = { aName, bName, dist, vill, addr, origin, story, vUrl, vTitle, vDur ->
+                                    viewModel.updateSellerMakerProfile(aName, bName, dist, vill, addr, origin, story, vUrl, vTitle, vDur) {}
+                                }
                             )
                         }
 
@@ -294,7 +299,10 @@ fun PadharoApp(viewModel: PadharoViewModel = viewModel()) {
                                 currentLanguage = currentLanguage,
                                 onAddProductClick = { currentTab = NavigationTab.SellerAddProduct.route },
                                 onDeleteProduct = { id -> viewModel.deleteProduct(id) },
-                                onUpdateOrderStatus = { orderId, status -> viewModel.updateOrderStatus(orderId, status) }
+                                onUpdateOrderStatus = { orderId, status -> viewModel.updateOrderStatus(orderId, status) },
+                                onUpdateMakerProfile = { aName, bName, dist, vill, addr, origin, story, vUrl, vTitle, vDur ->
+                                    viewModel.updateSellerMakerProfile(aName, bName, dist, vill, addr, origin, story, vUrl, vTitle, vDur) {}
+                                }
                             )
                         }
 

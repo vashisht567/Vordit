@@ -15,7 +15,11 @@ data class SellerProfileEntity(
     val fullAddress: String,
     val businessDescription: String,
     val artisanStory: String,
+    val craftOrigin: String = "",
     val videoUrl: String = "",
+    val videoTitle: String = "",
+    val videoDurationSeconds: Int = 45,
+    val workshopPhotoUrl: String = "",
     val bankAccountNo: String = "XXXX-XXXX-8921",
     val bankIfsc: String = "SBIN0001234",
     val status: String = "APPROVED", // "PENDING", "APPROVED", "REJECTED", "SUSPENDED"
